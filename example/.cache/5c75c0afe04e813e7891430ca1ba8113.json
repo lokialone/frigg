@@ -1,0 +1,1 @@
+{"dependencies":[{"name":"./_hide","loc":{"line":1,"column":19}}],"generated":{"js":"var hide = require('./_hide');\nmodule.exports = function (target, src, safe) {\n  for (var key in src) {\n    if (safe && target[key]) target[key] = src[key];\n    else hide(target, key, src[key]);\n  } return target;\n};\n"},"hash":"0d6e48742ea2e35d789559fdc6245a97"}

@@ -1,0 +1,1 @@
+{"dependencies":[{"name":"regenerator-runtime","loc":{"line":1,"column":25}}],"generated":{"js":"module.exports = require(\"regenerator-runtime\");\n"},"hash":"95cdc35ab8b0a2d58e04cf5caafa41f7"}
