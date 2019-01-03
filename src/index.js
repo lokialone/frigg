@@ -3,39 +3,39 @@ import { ImageItem, TextItem, TextGroupItem } from './item.js'
 import Quene from './queue.js'
 
 const testJson = {
-    background: {
-        type: 'color',
-        width: 400,
-        height: 400,
-        value: '#00ff00'
-    },
     // background: {
-    //     type: 'image',
+    //     type: 'color',
     //     width: 400,
     //     height: 400,
-    //     value: 'http://img2.3lian.com/2014/f5/63/d/16.jpg'
+    //     value: '#00ff00'
     // },
+    background: {
+        type: 'image',
+        width: 400,
+        height: 400,
+        value: 'http://img2.3lian.com/2014/f5/63/d/16.jpg'
+    },
     items: [
-        // {
-        //     type: 'image',
-        //     top: 200,
-        //     left: 200,
-        //     width: 100,
-        //     height: 100,
-        //     rotate: 45,
-        //     opacity: 0.3,
-        //     value: 'http://img2.3lian.com/2014/f5/63/d/16.jpg'
-        // },
-        // {
-        //     type: 'image',
-        //     top: 200,
-        //     left: 90,
-        //     width: 100,
-        //     height: 100,
-        //     rotate: 30,
-        //     opacity: 0.7,
-        //     value: 'http://img2.3lian.com/2014/f5/63/d/16.jpg'
-        // },
+        {
+            type: 'image',
+            top: 200,
+            left: 200,
+            width: 100,
+            height: 100,
+            rotate: 45,
+            opacity: 0.3,
+            value: 'http://img2.3lian.com/2014/f5/63/d/16.jpg'
+        },
+        {
+            type: 'image',
+            top: 200,
+            left: 90,
+            width: 100,
+            height: 100,
+            rotate: 30,
+            opacity: 0.7,
+            value: 'http://img2.3lian.com/2014/f5/63/d/16.jpg'
+        },
         {
             type: 'text',
             top: 200,
@@ -138,7 +138,7 @@ class Frigg {
         this.draw(ctx)
         Quene.push(() => {
             let image = this.canvas.toDataURL()
-            downloadFile(image, 'template.jpg')
+            // downloadFile(image, 'template.jpg')
         })
         Quene.next()
         
@@ -185,7 +185,7 @@ class Frigg {
     }
 }
 
-// new Frigg(testJson)
+new Frigg(testJson)
 
 export default Frigg
 

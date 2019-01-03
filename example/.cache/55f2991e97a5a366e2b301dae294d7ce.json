@@ -1,1 +1,0 @@
-{"dependencies":[],"generated":{"js":"var core = module.exports = { version: '2.6.1' };\nif (typeof __e == 'number') __e = core; // eslint-disable-line no-undef\n"},"hash":"87c55e64ef61bef0cc86ce2c6374f99c"}

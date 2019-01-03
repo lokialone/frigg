@@ -35,7 +35,6 @@ class ImageItem extends Item {
        super(ctx, data)
     }
     
-
     async draw() {
         let ctx = this.ctx
         ctx.save()
@@ -47,8 +46,6 @@ class ImageItem extends Item {
         Quene.next()
     }
 
-    
-   
     imagePromise(value) {
         let image = new Image()
         image.src = value

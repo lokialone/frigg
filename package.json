@@ -5,26 +5,22 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "babel src -d dist",
-    "dev": "",
+    "dev": "parcel example/index.html",
     "prepublish": "npm run build"
   },
   "engines": {
     "node": ">=8.9"
   },
   "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-core": "^6.26.3",
-    "babel-jest": "^23.6.0",
-    "babel-plugin-syntax-dynamic-import": "^6.18.0",
-    "babel-plugin-transform-runtime": "^6.23.0",
-    "babel-preset-env": "^1.7.0",
-    "jest": "^23.5.0",
-    "nodemon": "^1.18.3",
-    "regenerator-runtime": "^0.12.1"
+    "@babel/core": "^7.2.2",
+    "@babel/plugin-transform-runtime": "^7.2.0",
+    "@babel/preset-env": "^7.2.3",
+    "nodemon": "^1.18.3"
   },
   "author": "lokialone",
   "license": "ISC",
   "dependencies": {
+    "@babel/runtime": "^7.2.0",
     "konva": "^2.6.0",
     "two.js": "^0.7.0-beta.3"
   }
