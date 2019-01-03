@@ -26,8 +26,6 @@ class Item {
     draw() {
         Quene.next()
     }
-
-
 }
 
 class ImageItem extends Item {
