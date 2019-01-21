@@ -13,7 +13,8 @@ class Frigg {
         this.canvas = canvas
         this.ctx = ctx
         this.itemsJson = data.items
-        this.image = ''        
+        this.fn = null
+        this.load()
     }
 
     draw(ctx) {
@@ -24,8 +25,8 @@ class Frigg {
 
     createCanvas(width, height) {
         const canvas = document.createElement('canvas')
-        canvas.crossorigin = 'anonymous'
-        // document.body.append(canvas)
+        console.log(canvas)
+        document.body.append(canvas)
         canvas.width = width
         canvas.height = height
         const ctx = canvas.getContext('2d')
@@ -35,19 +36,33 @@ class Frigg {
         }
     }
 
+    load() {
+        if (this.fn) {
+            return this.fn
+        } else {
+            this.isDrawing = true;
+            this.fn = new Promise ((resolve, reject) => {
+                this.draw(this.ctx)
+                Quene.push(() => {
+                    let image = this.canvas.toDataURL()
+                    if (!image) {
+                        reject('无法生成image')
+                    }
+                    resolve(image)
+                // downloadFile(image, 'template.jpg')
+                })
+                Quene.next()
+            }) 
+            return this.fn;
+            
+        }  
+    }
 
     getImage() {
-        return new Promise ((resolve, reject) => {
-            this.draw(this.ctx)
-            Quene.push(() => {
-                let image = this.canvas.toDataURL()
-                if (!image) {
-                    reject('无法生成image')
-                }
-                resolve(image)
-            // downloadFile(image, 'template.jpg')
+        return new Promise((resolve) => {
+            this.load().then((iamge) => {
+                resolve(iamge)
             })
-            Quene.next()
         })
     }
 
@@ -81,23 +96,14 @@ class Frigg {
 
     getThumbnail(width) {
         let height = width / this.ratio
-        let time = 0
         const { ctx, canvas } = this.createCanvas(width, height)
-        return new Promise((resolve, reject) => {
-            let timer = setInterval(() => {
-                time ++
-                if (!this.image) {
-                    ctx.drawImage(this.canvas, 0, 0, width, height)
-                    const image = canvas.toDataURL()
-                    resolve(image)
-                }
-                if (time > 10000) {
-                    clearInterval(timer);
-                    reject('');
-                }
-            }, 10);
+        return new Promise ((resolve)=> {
+            this.load().then(() => {
+                ctx.drawImage(this.canvas, 0, 0, width, height)
+                const image = canvas.toDataURL()
+                resolve(image)
+            })  
         })
-       
     }
 }
 export default Frigg
