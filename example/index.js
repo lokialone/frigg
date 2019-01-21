@@ -1,36 +1,14 @@
-# Frigg
-将一定规律的json转成对应的jpg图片下载下来。
+import Frigg from '../src/index';
 
-
-当前可用@souche/frigg@0.0.0-beta-4
-
-## usgae
-
-
-```
-    //testJson 绘制的格式
-    let a = new Frigg(testJson)
-    //获取绘制的图片
-    a.getImage().then((res) => {
-        console.log('res', res);
-    })
-    //获取缩略图,需传入缩率图宽度
-    a.getThumbnail(200).then((res) => {
-        console.log('getThumbnail', res);
-    })
-```
-
-```
-    //testJson格式
-    const testJson = {
-    height: 400,
-    width: 400,
+const testJson = {
     background: {
         type: 'color',
         width: 400,
         height: 400,
         value: '#00ff00'
     },
+    height: 400,
+    width: 400,
     // background: {
     //     type: 'image',
     //     width: 400,
@@ -140,11 +118,13 @@
 
 } 
 
-```
 
+let a = new Frigg(testJson)
 
+a.getImage().then((res) => {
+    console.log('res', res);
+})
 
-
-
-
-
+a.getThumbnail(200).then((res) => {
+    console.log('getThumbnail', res);
+})

@@ -2,130 +2,18 @@ import { isArray, downloadFile } from './tool.js'
 import { ImageItem, TextItem, TextGroupItem } from './item.js'
 import Quene from './queue.js'
 
-const testJson = {
-    // background: {
-    //     type: 'color',
-    //     width: 400,
-    //     height: 400,
-    //     value: '#00ff00'
-    // },
-    background: {
-        type: 'image',
-        width: 400,
-        height: 400,
-        value: 'http://img2.3lian.com/2014/f5/63/d/16.jpg'
-    },
-    items: [
-        {
-            type: 'image',
-            top: 200,
-            left: 200,
-            width: 100,
-            height: 100,
-            rotate: 45,
-            opacity: 0.3,
-            value: 'http://img2.3lian.com/2014/f5/63/d/16.jpg'
-        },
-        {
-            type: 'image',
-            top: 200,
-            left: 90,
-            width: 100,
-            height: 100,
-            rotate: 30,
-            opacity: 0.7,
-            value: 'http://img2.3lian.com/2014/f5/63/d/16.jpg'
-        },
-        {
-            type: 'text',
-            top: 200,
-            left: 90,
-            width: 100,
-            height: 100,
-            rotate: 0,
-            value: '我不好',
-            style: {
-                'font-size': 14,
-                'font-family': '',
-                'letter-spacing': 3,
-                'line-height': 28,
-                'text-align': 'center',
-                color: 'red'
-            }
-        },
-        {
-            type: 'text',
-            top: 0,
-            left: 0,
-            width: 100,
-            height: 100,
-            rotate: 0,
-            value: '你好哇，李银河',
-            style: {
-                'font-size': 14,
-                'font-family': '',
-                'letter-spacing': 3,
-                'line-height': 28,
-                'text-align': 'center',
-                color: 'red'
-            }
-        },
-        {
-            type: 'group',
-            top: 200,
-            left: 0,
-            width: 200,
-            height: 200,
-            rotate: 0,
-            items: [
-                {
-                    type: 'text',
-                    top: 0,
-                    left: 10,
-                    width: 100,
-                    height: 100,
-                    rotate: 40,
-                    value: '我不好',
-                    style: {
-                        'font-size': 14,
-                        'font-family': '',
-                        'letter-spacing': 3,
-                        'line-height': 28,
-                        'text-align': 'center',
-                        color: 'red'
-                    }
-                },
-                {
-                    type: 'text',
-                    top: 40,
-                    left: 10,
-                    width: 100,
-                    height: 100,
-                    rotate: 0,
-                    value: '我不好',
-                    style: {
-                        'font-size': 14,
-                        'font-family': '',
-                        'letter-spacing': 3,
-                        'line-height': 28,
-                        'text-align': 'center',
-                        color: 'red'
-                    }
-                },
-            ]
-        }
-    ]
+//为了保证图片绘制的顺序，使用绘制队列
 
-} 
-
-//为了保证图片绘制的顺序，
 class Frigg {
 
     constructor(data) {
+        this.ratio = data.width / data.height
         this.bgJson = data.background
-        const ctx = this.createCanvas(this.bgJson.width, this.bgJson.height)
+        const {ctx, canvas} = this.createCanvas(data.width, data.height)
+        this.canvas = canvas
+        this.ctx = ctx
         this.itemsJson = data.items
-        this.createImage(ctx)
+        this.image = ''        
     }
 
     draw(ctx) {
@@ -134,26 +22,33 @@ class Frigg {
 
     }
 
-    createImage(ctx) {
-        this.draw(ctx)
-        Quene.push(() => {
-            let image = this.canvas.toDataURL()
-            // downloadFile(image, 'template.jpg')
-        })
-        Quene.next()
-        
-    }
-
-
     createCanvas(width, height) {
         const canvas = document.createElement('canvas')
         canvas.crossorigin = 'anonymous'
-        document.body.append(canvas)
+        // document.body.append(canvas)
         canvas.width = width
         canvas.height = height
-        this.canvas = canvas
         const ctx = canvas.getContext('2d')
-        return ctx
+        return {
+            canvas,
+            ctx 
+        }
+    }
+
+
+    getImage() {
+        return new Promise ((resolve, reject) => {
+            this.draw(this.ctx)
+            Quene.push(() => {
+                let image = this.canvas.toDataURL()
+                if (!image) {
+                    reject('无法生成image')
+                }
+                resolve(image)
+            // downloadFile(image, 'template.jpg')
+            })
+            Quene.next()
+        })
     }
 
     drawBackground(ctx, bgJson) {
@@ -183,10 +78,22 @@ class Frigg {
     isItem(i, type) {
         return i.name.toLowerCase().includes(type)
     }
+
+    getThumbnail(width) {
+        let height = width / this.ratio
+        const { ctx, canvas } = this.createCanvas(width, height)
+        return new Promise((resolve) => {
+            setInterval(() => {
+                if (!this.image) {
+                    ctx.drawImage(this.canvas, 0, 0, width, height)
+                    const image = canvas.toDataURL()
+                    resolve(image)
+                }
+            }, 10);
+        })
+       
+    }
 }
-
-new Frigg(testJson)
-
 export default Frigg
 
 
