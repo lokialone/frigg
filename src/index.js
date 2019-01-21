@@ -81,13 +81,19 @@ class Frigg {
 
     getThumbnail(width) {
         let height = width / this.ratio
+        let time = 0
         const { ctx, canvas } = this.createCanvas(width, height)
         return new Promise((resolve) => {
-            setInterval(() => {
+            let timer = setInterval(() => {
+                time ++
                 if (!this.image) {
                     ctx.drawImage(this.canvas, 0, 0, width, height)
                     const image = canvas.toDataURL()
                     resolve(image)
+                }
+                if (time > 1000) {
+                    clearInterval(timer);
+                    reject('');
                 }
             }, 10);
         })

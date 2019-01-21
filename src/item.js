@@ -47,6 +47,7 @@ class ImageItem extends Item {
     imagePromise(value) {
         let image = new Image()
         image.src = value
+        image.crossorigin = 'anonymous'
         return new Promise((resolve) => {
             image.onload = (() => {
                 resolve(image)
