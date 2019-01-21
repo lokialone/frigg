@@ -1,20 +1,20 @@
 import Frigg from '../src/index';
 
 const testJson = {
-    background: {
-        type: 'color',
-        width: 400,
-        height: 400,
-        value: '#00ff00'
-    },
-    height: 400,
-    width: 400,
     // background: {
-    //     type: 'image',
+    //     type: 'color',
     //     width: 400,
     //     height: 400,
-    //     value: 'http://img2.3lian.com/2014/f5/63/d/16.jpg'
+    //     value: '#00ff00'
     // },
+    height: 400,
+    width: 400,
+    background: {
+        type: 'image',
+        width: 400,
+        height: 400,
+        value: 'https://img.souche.com/183902048c3c0327d079c968ab6b4989.jpg'
+    },
     items: [
         // {
         //     type: 'image',

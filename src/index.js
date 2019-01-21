@@ -83,7 +83,7 @@ class Frigg {
         let height = width / this.ratio
         let time = 0
         const { ctx, canvas } = this.createCanvas(width, height)
-        return new Promise((resolve) => {
+        return new Promise((resolve, reject) => {
             let timer = setInterval(() => {
                 time ++
                 if (!this.image) {
@@ -91,7 +91,7 @@ class Frigg {
                     const image = canvas.toDataURL()
                     resolve(image)
                 }
-                if (time > 1000) {
+                if (time > 10000) {
                     clearInterval(timer);
                     reject('');
                 }
