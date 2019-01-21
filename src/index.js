@@ -25,7 +25,7 @@ class Frigg {
     createCanvas(width, height) {
         const canvas = document.createElement('canvas')
         canvas.crossorigin = 'anonymous'
-        // document.body.append(canvas)
+        document.body.append(canvas)
         canvas.width = width
         canvas.height = height
         const ctx = canvas.getContext('2d')

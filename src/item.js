@@ -59,13 +59,25 @@ class ImageItem extends Item {
 class TextItem extends Item {
     constructor(ctx, data) {
         super(ctx, data)
-        let style = data.style
+        let style = this.removePx(data.style)
         this.fontSize = style['font-size'] || 28
         this.fontFamily = style['font-family'] || 'sans-serif'
         this.textAlgin =  style['text-align'] || 'left'
         this.letterSpacing = style['letter-spacing']|| 2
         this.lineHeight = style['line-height'] || this.fontSize + 4
         this.color = style.color || '#1a1a1a'
+    }
+
+    removePx(style) {
+        let res = []
+        Object.keys(style).forEach((item) => {
+            let value = style[item]
+            if (typeof value === 'string') {
+                value = value.replace('px', '')
+            }
+            res[item] = value
+        })
+        return res;
     }
 
     draw() {

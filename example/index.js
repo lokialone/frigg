@@ -43,12 +43,12 @@ const testJson = {
             width: 100,
             height: 100,
             rotate: 0,
-            value: '我不好',
+            value: '我不好aaahase px',
             style: {
-                'font-size': 14,
+                'font-size': '14px',
                 'font-family': '',
                 'letter-spacing': 3,
-                'line-height': 28,
+                'line-height': '32px',
                 'text-align': 'center',
                 color: 'red'
             }
