@@ -82,9 +82,11 @@ class TextItem extends Item {
         this.fontSize = parseInt(style['font-size']) || 28
         this.fontFamily = style['font-family'] || 'sans-serif'
         this.textAlgin =  style['text-align'] || 'left'
-        this.letterSpacing = style['letter-spacing']|| 2
+        this.letterSpacing = style['letter-spacing']|| 0
         this.lineHeight = style['line-height'] || this.fontSize + 4
         this.color = style.color || '#1a1a1a'
+        this.fontStyle = style['font-weight'] === 'bold' ? 'bold' : style['font-style']
+
     }
 
     removePx(style) {
@@ -105,18 +107,21 @@ class TextItem extends Item {
     }
 
     pureDraw() {
-        let test = new Konva.Text({
+        let text = new Konva.Text({
             x: this.x,
             y: this.y,
             width: this.width,
             text: this.value,
             fontSize: this.fontSize,
             fontFamily: this.fontFamily,
+            fontStyle: this.fontStyle,
             align: this.textAlgin,
             fill: this.color,
             rotation: this.rotate
-        });
-        return test   
+        })
+        text.letterSpacing(parseInt(this.letterSpacing))
+        // console.log('text', )
+        return text   
     }    
 }
 

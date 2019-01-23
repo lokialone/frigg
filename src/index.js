@@ -9,10 +9,12 @@ class Frigg {
 
     constructor(data) {
         this.ratio = data.width / data.height
-        this.bgJson = data.background
+        this.bgJson = data.background || ''
         this.itemsJson = data.items
         this.containerId = uuid()
+        
         this.createContainer()
+        
         this.stage = new Konva.Stage({
             container: this.containerId,
             width: data.width,
@@ -23,8 +25,10 @@ class Frigg {
         this.load()
     }
 
-    draw(ctx) {
-        this.drawBackground(this.bgJson)
+    draw() {
+        if (this.background) {
+            this.drawBackground(this.bgJson)
+        }
         this.drawItems(this.itemsJson)
 
     }
@@ -32,10 +36,11 @@ class Frigg {
     createContainer() {
         let div = document.createElement('div')
         div.id = this.containerId
-        div.style.visibility = 'hidden'
-        div.style.zIndex = '-1'
-        div.style.position = 'absolute'
+        // div.style.visibility = 'hidden'
+        // div.style.zIndex = '-1'
+        // div.style.position = 'absolute'
         this.container = div
+        
         document.body.append(div)
     }
 
@@ -106,7 +111,7 @@ class Frigg {
     }
 
     isItem(i, type) {
-        return i.name.toLowerCase().includes(type)
+        return i.name.toLowerCase().includes(type.toLowerCase())
     }
 
     getThumbnail(width) {
@@ -118,10 +123,9 @@ class Frigg {
        
         return new Promise ((resolve)=> {
             this.load().then(() => {
-                let imageOrigin = this.container.querySelector('canvas')
-                ctx.drawImage(imageOrigin, 0, 0, width, height)
+                this.canvas = this.container.querySelector('canvas')
+                ctx.drawImage(this.canvas, 0, 0, width, height)
                 const image = canvas.toDataURL()
-                // downloadFile(image, 'test')
                 resolve(image)
             })  
         })
