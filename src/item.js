@@ -56,7 +56,7 @@ class ImageItem extends Item {
             x : this.clip.left,
             y : this.clip.top,
             width : this.clip.width,
-            height : this.clip.width
+            height : this.clip.height
         })
         group.add(yoda)
         this.layer.add(group)
@@ -65,8 +65,8 @@ class ImageItem extends Item {
 
     imagePromise(value) {
         let image = new Image()
-        image.src = value
         image.setAttribute('crossOrigin', 'Anonymous')
+        image.src = value
         return new Promise((resolve) => {
             image.onload = (() => {
                 resolve(image)
@@ -119,7 +119,6 @@ class TextItem extends Item {
         return test   
     }    
 }
-
 
 class TextGroupItem extends Item {
     constructor(layer, data) {

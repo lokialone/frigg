@@ -13,7 +13,7 @@ const testJson = {
         type: 'image',
         width: 400,
         height: 400,
-        value: 'https://img.souche.com/183902048c3c0327d079c968ab6b4989.jpg'
+        value: 'http://img.souche.com/0c17e613d439f2070246a8e4078350c5.jpg'
     },
     items: [
         {
@@ -103,6 +103,6 @@ a.getImage().then((res) => {
     console.log('res', res);
 })
 
-// a.getThumbnail(200).then((res) => {
-//     console.log('getThumbnail', res);
-// })
+a.getThumbnail(200).then((res) => {
+    console.log('getThumbnail', res);
+})

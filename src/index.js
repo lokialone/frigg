@@ -1,6 +1,7 @@
 import { isArray, downloadFile } from './tool.js'
 import { ImageItem, TextItem, TextGroupItem } from './item.js'
 import Quene from './queue.js'
+import uuid from 'uuid/v4'
 
 //为了保证图片绘制的顺序，使用绘制队列
 
@@ -10,8 +11,10 @@ class Frigg {
         this.ratio = data.width / data.height
         this.bgJson = data.background
         this.itemsJson = data.items
+        this.containerId = uuid()
+        this.createContainer()
         this.stage = new Konva.Stage({
-            container: 'container',
+            container: this.containerId,
             width: data.width,
             height: data.height
         })
@@ -26,6 +29,22 @@ class Frigg {
 
     }
 
+    createContainer() {
+        let div = document.createElement('div')
+        div.id = this.containerId
+        div.style.visibility = 'hidden'
+        div.style.zIndex = '-1'
+        div.style.position = 'absolute'
+        this.container = div
+        document.body.append(div)
+    }
+
+    removeContainer() {
+        document.body.removeChild(this.container)
+    }
+    
+
+
     load() {
         if (this.fn) {
             return this.fn
@@ -38,7 +57,8 @@ class Frigg {
                     if (!image) {
                         reject('无法生成image')
                     }
-                    resolve(image)
+                    // this.removeContainer()
+                    resolve(image)  
                 })
                 Quene.next()
             }) 
@@ -61,9 +81,9 @@ class Frigg {
                 x: 0,
                 y: 0,
                 width: bgJson.width,
-                height: bgJson.width,
+                height: bgJson.height,
                 fill: bgJson.value
-              })
+            })
             this.layer.add(rect)
         } else{
             let bg = new ImageItem(this.layer, bgJson)
@@ -91,11 +111,17 @@ class Frigg {
 
     getThumbnail(width) {
         let height = width / this.ratio
-        const { ctx, canvas } = this.createCanvas(width, height)
+        let canvas = document.createElement('canvas')
+        canvas.width = width
+        canvas.height = height
+        let ctx = canvas.getContext('2d')
+       
         return new Promise ((resolve)=> {
             this.load().then(() => {
-                ctx.drawImage(this.canvas, 0, 0, width, height)
+                let imageOrigin = this.container.querySelector('canvas')
+                ctx.drawImage(imageOrigin, 0, 0, width, height)
                 const image = canvas.toDataURL()
+                // downloadFile(image, 'test')
                 resolve(image)
             })  
         })

@@ -11,9 +11,11 @@ class Queue {
             this.funcs.push(fn);
         }
     }
+    
     start() {
         this.next()
     }
+
     next() {
         let fn = this.funcs.shift();
         if (typeof fn === 'function') {

@@ -1,6 +1,6 @@
 {
   "name": "@souche/frigg",
-  "version": "0.0.0-beta.10",
+  "version": "0.0.0-beta.15",
   "description": "",
   "main": "dist/index.js",
   "scripts": {
@@ -17,12 +17,13 @@
     "@babel/plugin-transform-runtime": "^7.2.0",
     "@babel/preset-env": "^7.2.3",
     "@babel/preset-stage-2": "^7.0.0",
-    "@babel/runtime": "^7.2.0",
+    "@babel/runtime": "^7.3.1",
     "nodemon": "^1.18.3"
   },
   "author": "lokialone",
   "license": "ISC",
   "dependencies": {
-    "konva": "^2.6.0"
+    "konva": "^2.6.0",
+    "uuid": "^3.3.2"
   }
 }
