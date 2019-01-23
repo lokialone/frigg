@@ -17,8 +17,8 @@ class Frigg {
         
         this.stage = new Konva.Stage({
             container: this.containerId,
-            width: data.width,
-            height: data.height
+            width: data.width || 100,
+            height: data.height || 100
         })
         this.layer = new Konva.Layer()
         this.fn = null
@@ -26,9 +26,7 @@ class Frigg {
     }
 
     draw() {
-        if (this.background) {
-            this.drawBackground(this.bgJson)
-        }
+        this.drawBackground(this.bgJson)
         this.drawItems(this.itemsJson)
 
     }
@@ -36,11 +34,10 @@ class Frigg {
     createContainer() {
         let div = document.createElement('div')
         div.id = this.containerId
-        // div.style.visibility = 'hidden'
-        // div.style.zIndex = '-1'
-        // div.style.position = 'absolute'
+        div.style.visibility = 'hidden'
+        div.style.zIndex = '-1'
+        div.style.position = 'absolute'
         this.container = div
-        
         document.body.append(div)
     }
 
@@ -81,6 +78,7 @@ class Frigg {
     }
 
     drawBackground(bgJson) {
+        if (!bgJson) return
         if (bgJson.type === 'color') {
             let rect = new Konva.Rect({
                 x: 0,
@@ -97,7 +95,7 @@ class Frigg {
     }
 
     drawItems(itemsData) {
-        if (itemsData.length <= 0 && !isArray(itemsData)) return
+        if (!isArray(itemsData) || itemsData.length < 1) return
         const TYPES = [ImageItem, TextItem, TextGroupItem]
         itemsData.forEach(element => {
             TYPES.some((i) =>  {
