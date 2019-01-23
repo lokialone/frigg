@@ -9,47 +9,36 @@ class Frigg {
     constructor(data) {
         this.ratio = data.width / data.height
         this.bgJson = data.background
-        const {ctx, canvas} = this.createCanvas(data.width, data.height)
-        this.canvas = canvas
-        this.ctx = ctx
         this.itemsJson = data.items
+        this.stage = new Konva.Stage({
+            container: 'container',
+            width: data.width,
+            height: data.height
+        })
+        this.layer = new Konva.Layer()
         this.fn = null
         this.load()
     }
 
     draw(ctx) {
-        this.drawBackground(ctx, this.bgJson)
-        this.drawItems(ctx, this.itemsJson)
+        this.drawBackground(this.bgJson)
+        this.drawItems(this.itemsJson)
 
-    }
-
-    createCanvas(width, height) {
-        const canvas = document.createElement('canvas')
-        console.log(canvas)
-        document.body.append(canvas)
-        canvas.width = width
-        canvas.height = height
-        const ctx = canvas.getContext('2d')
-        return {
-            canvas,
-            ctx 
-        }
     }
 
     load() {
         if (this.fn) {
             return this.fn
         } else {
-            this.isDrawing = true;
             this.fn = new Promise ((resolve, reject) => {
-                this.draw(this.ctx)
+                this.draw(this.layer)
                 Quene.push(() => {
-                    let image = this.canvas.toDataURL()
+                    this.stage.add(this.layer)
+                    let image = this.stage.toDataURL()
                     if (!image) {
                         reject('无法生成image')
                     }
                     resolve(image)
-                // downloadFile(image, 'template.jpg')
                 })
                 Quene.next()
             }) 
@@ -66,23 +55,29 @@ class Frigg {
         })
     }
 
-    drawBackground(ctx, bgJson) {
+    drawBackground(bgJson) {
         if (bgJson.type === 'color') {
-            ctx.fillStyle = bgJson.value
-            ctx.fillRect(0, 0, bgJson.width, bgJson.height);
+            let rect = new Konva.Rect({
+                x: 0,
+                y: 0,
+                width: bgJson.width,
+                height: bgJson.width,
+                fill: bgJson.value
+              })
+            this.layer.add(rect)
         } else{
-            let bg = new ImageItem(ctx, bgJson)
+            let bg = new ImageItem(this.layer, bgJson)
             bg.add()
         }
     }
 
-    drawItems(ctx, itemsData) {
-        if (itemsData.length <= 0 && !isArray(items)) return
+    drawItems(itemsData) {
+        if (itemsData.length <= 0 && !isArray(itemsData)) return
         const TYPES = [ImageItem, TextItem, TextGroupItem]
         itemsData.forEach(element => {
             TYPES.some((i) =>  {
                 if (this.isItem(i, element.type)) {
-                    let tmpItem = new i(ctx, element)
+                    let tmpItem = new i(this.layer, element)
                     tmpItem.add()
                     return true
                 }

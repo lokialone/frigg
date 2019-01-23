@@ -1,12 +1,12 @@
 import Frigg from '../src/index';
 
 const testJson = {
-    // background: {
-    //     type: 'color',
-    //     width: 400,
-    //     height: 400,
-    //     value: '#00ff00'
-    // },
+    background: {
+        type: 'color',
+        width: 400,
+        height: 400,
+        value: '#00ff00'
+    },
     height: 400,
     width: 400,
     background: {
@@ -16,76 +16,55 @@ const testJson = {
         value: 'https://img.souche.com/183902048c3c0327d079c968ab6b4989.jpg'
     },
     items: [
+        {
+            type: 'image',
+            top: 100,
+            left: 100,
+            width: 150,
+            height: 150,
+            rotate: 0,
+            clip: {
+                width: 200,
+                height: 100,
+                left: 0,
+                right: 0
+            },
+            opacity: 0.8,
+            value: 'https://img.souche.com/183902048c3c0327d079c968ab6b4989.jpg'
+        },
         // {
-        //     type: 'image',
-        //     top: 200,
-        //     left: 200,
+        //     type: 'text',
+        //     top: 0,
+        //     left: 0,
         //     width: 100,
         //     height: 100,
-        //     rotate: 45,
-        //     opacity: 0.3,
-        //     value: 'http://img2.3lian.com/2014/f5/63/d/16.jpg'
+        //     rotate: 0,
+        //     value: '你好哇，李银河\nhello',
+        //     style: {
+        //         'font-size': 14,
+        //         'font-family': '',
+        //         'letter-spacing': 3,
+        //         'line-height': 58,
+        //         'text-align': 'right',
+        //         color: 'red'
+        //     }
         // },
-        // {
-        //     type: 'image',
-        //     top: 200,
-        //     left: 90,
-        //     width: 100,
-        //     height: 100,
-        //     rotate: 30,
-        //     opacity: 0.7,
-        //     value: 'http://img2.3lian.com/2014/f5/63/d/16.jpg'
-        // },
-        {
-            type: 'text',
-            top: 200,
-            left: 90,
-            width: 100,
-            height: 100,
-            rotate: 0,
-            value: '我不好aaahase px',
-            style: {
-                'font-size': '14px',
-                'font-family': '',
-                'letter-spacing': 3,
-                'line-height': '32px',
-                'text-align': 'center',
-                color: 'red'
-            }
-        },
-        {
-            type: 'text',
-            top: 0,
-            left: 0,
-            width: 100,
-            height: 100,
-            rotate: 0,
-            value: '你好哇，李银河',
-            style: {
-                'font-size': 14,
-                'font-family': '',
-                'letter-spacing': 3,
-                'line-height': 28,
-                'text-align': 'center',
-                color: 'red'
-            }
-        },
         {
             type: 'group',
-            top: 200,
+            top: 0,
             left: 0,
             width: 200,
             height: 200,
-            rotate: 0,
+            rotate: 30,
             items: [
                 {
                     type: 'text',
-                    top: 0,
+                    top: 10,
                     left: 10,
                     width: 100,
                     height: 100,
-                    rotate: 40,
-                    value: '我不好',
+                    rotate: 0,
+                    value: '我不好0.0',
                     style: {
                         'font-size': 14,
                         'font-family': '',
@@ -118,13 +97,12 @@ const testJson = {
 
 } 
 
-
 let a = new Frigg(testJson)
 
 a.getImage().then((res) => {
     console.log('res', res);
 })
 
-a.getThumbnail(200).then((res) => {
-    console.log('getThumbnail', res);
-})
+// a.getThumbnail(200).then((res) => {
+//     console.log('getThumbnail', res);
+// })
