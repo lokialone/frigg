@@ -22,6 +22,24 @@ class Item {
     draw() {
         Quene.next()
     }
+
+    drawGroup() {
+        let group = new Konva.Group({
+            x: this.x,
+            y: this.y,
+            width: this.width,
+            height: this.height,
+            rotation: this.rotate,
+            opacity: this.opacity,
+            clip: {
+                x: 0,
+                y: 0,
+                width: this.width,
+                height: this.height
+            },
+        })
+        return group
+    }
 }
 
 class ImageItem extends Item {
@@ -36,20 +54,7 @@ class ImageItem extends Item {
     }
     
     async draw() {
-        let group = new Konva.Group({
-            x: this.x,
-            y: this.y,
-            width: this.width,
-            height: this.height,
-            rotation: this.rotate,
-            opacity: this.opacity,
-            clip: {
-                x: 0,
-                y: 0,
-                width: this.width,
-                height: this.height
-            },
-        });
+        let group = this.drawGroup()
         let image = await this.imagePromise(this.value)
         let yoda = new Konva.Image({
             image: image,
@@ -130,25 +135,11 @@ class TextGroupItem extends Item {
         super(layer, data)
         this.data = data
         this.items = data.items
-        this.group = new Konva.Group({
-            x: this.x,
-            y: this.y,
-            width: this.width,
-            height: this.height,
-            rotation: this.rotate,
-            opacity: this.opacity,
-            clip: {
-                x: 0,
-                y: 0,
-                width: this.width,
-                height: this.height
-            }
-        })
     }
     draw() {
+        this.group = this.drawGroup()
         this.drawTexts()
-        Quene.next()
-        
+        Quene.next()    
     }
 
     drawTexts() {

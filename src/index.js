@@ -11,6 +11,7 @@ class Frigg {
         this.ratio = data.width / data.height
         this.bgJson = data.background || ''
         this.itemsJson = data.items
+        // uuid是否不需要呢0。0
         this.containerId = uuid()
         
         this.createContainer()

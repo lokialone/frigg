@@ -2,20 +2,20 @@ import Frigg from '../src/index';
 import { downloadFile } from '../src/tool.js';
 
 const testJson = {
-    background: {
-        type: 'color',
-        width: 400,
-        height: 400,
-        value: '#00ff00'
-    },
+    // background: {
+    //     type: 'color',
+    //     width: 400,
+    //     height: 400,
+    //     value: '#00ff00'
+    // },
     height: 400,
     width: 400,
-    background: {
-        type: 'image',
-        width: 400,
-        height: 400,
-        value: 'http://img.souche.com/0c17e613d439f2070246a8e4078350c5.jpg'
-    },
+    // background: {
+    //     type: 'image',
+    //     width: 400,
+    //     height: 400,
+    //     value: 'http://img.souche.com/0c17e613d439f2070246a8e4078350c5.jpg'
+    // },
     items: [
         {
             type: 'image',
