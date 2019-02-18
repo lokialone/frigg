@@ -6,7 +6,6 @@ import uuid from 'uuid/v4'
 //为了保证图片绘制的顺序，使用绘制队列
 
 class Frigg {
-
     constructor(data) {
         this.ratio = data.width / data.height
         this.bgJson = data.background || ''
@@ -110,7 +109,7 @@ class Frigg {
     }
 
     isItem(i, type) {
-        return i.name.toLowerCase().includes(type.toLowerCase())
+        return i.type.toLowerCase().includes(type.toLowerCase())
     }
 
     getThumbnail(width) {

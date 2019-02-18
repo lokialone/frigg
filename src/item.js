@@ -1,8 +1,9 @@
 import Quene from './queue.js'
 import Konva from 'konva'
 
-class Item { 
+class Item {
     constructor(layer, data) {
+        // this.data = data
         this.layer = layer
         this.width = data.width 
         this.height = data.height
@@ -23,14 +24,28 @@ class Item {
         Quene.next()
     }
 
+    getRotateCoor(x0, y0, x1, y1, radia) {
+        let x = (x1 - x0) * Math.cos(radia) - (y1 - y0) * Math.sin(radia) + x0;
+        let y = (x1 - x0) * Math.sin(radia) + (y1 -y0) * Math.cos(radia) + y0;
+        return {
+            x,
+            y
+        }
+    }
+
     drawGroup() {
+        console.log('x, y', this.x, this.y)
         let group = new Konva.Group({
-            x: this.x,
-            y: this.y,
+            x: this.x + this.width / 2,
+            y: this.y + this.height / 2,
             width: this.width,
             height: this.height,
             rotation: this.rotate,
             opacity: this.opacity,
+            offset: {
+                x: this.width / 2,
+                y: this.height / 2
+            }, 
             clip: {
                 x: 0,
                 y: 0,
@@ -79,6 +94,7 @@ class ImageItem extends Item {
         })
     }
 }
+ImageItem.type = 'ImageItem'
 
 class TextItem extends Item {
     constructor(layer, data) {
@@ -103,7 +119,7 @@ class TextItem extends Item {
             }
             res[item] = value
         })
-        return res;
+        return res
     }
 
     draw() {
@@ -129,6 +145,7 @@ class TextItem extends Item {
         return text   
     }    
 }
+TextItem.type = 'TextItem'
 
 class TextGroupItem extends Item {
     constructor(layer, data) {
@@ -150,5 +167,6 @@ class TextGroupItem extends Item {
         this.layer.add(this.group)
     }
 }
+TextGroupItem.type = 'TextGroupItem'
 
 export { ImageItem, TextItem, TextGroupItem }
