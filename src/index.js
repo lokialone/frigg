@@ -1,5 +1,6 @@
 import { isArray, downloadFile } from './tool.js'
-import { ImageItem, TextItem, TextGroupItem } from './item.js'
+import { ImageItem, TextItem, TextGroupItem, Rect } from './item.js'
+import Konva from 'konva'
 import Quene from './queue.js'
 import uuid from 'uuid/v4'
 
@@ -10,7 +11,7 @@ class Frigg {
         this.ratio = data.width / data.height
         this.bgJson = data.background || ''
         this.itemsJson = data.items
-        // uuid是否不需要呢0。0
+        // // uuid是否不需要呢0。0
         this.containerId = uuid()
         
         this.createContainer()
@@ -75,13 +76,7 @@ class Frigg {
     drawBackground(bgJson) {
         if (!bgJson) return
         if (bgJson.type === 'color') {
-            let rect = new Konva.Rect({
-                x: 0,
-                y: 0,
-                width: bgJson.width,
-                height: bgJson.height,
-                fill: bgJson.value
-            })
+            let rect = Rect(bgJson.width || 750, bgJson.height || 1334, bgJson.value)
             this.layer.add(rect)
         } else{
             let bg = new ImageItem(this.layer, bgJson)

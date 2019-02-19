@@ -34,7 +34,6 @@ class Item {
     }
 
     drawGroup() {
-        console.log('x, y', this.x, this.y)
         let group = new Konva.Group({
             x: this.x + this.width / 2,
             y: this.y + this.height / 2,
@@ -169,4 +168,14 @@ class TextGroupItem extends Item {
 }
 TextGroupItem.type = 'TextGroupItem'
 
-export { ImageItem, TextItem, TextGroupItem }
+const Rect = function ( width, height, value) {
+    return new Konva.Rect({
+        x: 0,
+        y: 0,
+        width,
+        height,
+        fill: value
+    })
+}
+
+export { ImageItem, TextItem, TextGroupItem, Rect }

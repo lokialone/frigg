@@ -100,8 +100,10 @@ import { downloadFile } from '../src/tool.js';
 
 const testJson = {
     background: {
-       type: 'image',
-       value: 'https://img.souche.com/bbe38c96ca3ca758c3c2ceaf39a1b7c1.jpg'
+    //    type: 'image',
+    //    value: 'https://img.souche.com/bbe38c96ca3ca758c3c2ceaf39a1b7c1.jpg'
+          type: 'color',
+          value: '#00ff00'
     },
     height: 1334,
     width: 750,
@@ -156,7 +158,7 @@ let img = document.createElement('img');
 // })
 
 a.getThumbnail(200).then((res) => {
-    console.log('getThumbnail', res);
+    // console.log('getThumbnail', res);
     img.src = res;
    document.body.append(img)
 })
