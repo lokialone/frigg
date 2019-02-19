@@ -59,7 +59,6 @@ class Frigg {
                     if (!image) {
                         reject('无法生成image')
                     }
-                    // this.removeContainer()
                     resolve(image)  
                 })
                 Quene.next()
@@ -70,11 +69,7 @@ class Frigg {
     }
 
     getImage() {
-        return new Promise((resolve) => {
-            this.load().then((iamge) => {
-                resolve(iamge)
-            })
-        })
+        return this.load()
     }
 
     drawBackground(bgJson) {
@@ -118,15 +113,12 @@ class Frigg {
         canvas.width = width
         canvas.height = height
         let ctx = canvas.getContext('2d')
-       
-        return new Promise ((resolve)=> {
-            this.load().then(() => {
-                this.canvas = this.container.querySelector('canvas')
-                ctx.drawImage(this.canvas, 0, 0, width, height)
-                const image = canvas.toDataURL()
-                resolve(image)
-            })  
-        })
+        return this.load().then(() => {
+            this.canvas = this.container.querySelector('canvas')
+            ctx.drawImage(this.canvas, 0, 0, width, height)
+            const image = canvas.toDataURL()
+            return image
+        })  
     }
 }
 export default Frigg

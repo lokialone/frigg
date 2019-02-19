@@ -1,8 +1,8 @@
 # Frigg
-将一定规律的json转成对应的jpg图片下载下来。
+将一定格式的json转成对应的jpg图片，返回图片的base64信息
 
 
-当前可用@souche/frigg@0.0.0-beta-4
+当前可用@souche/frigg@0.0.2
 
 ## usgae
 

@@ -149,12 +149,14 @@ const testJson = {
 let a = new Frigg(testJson)
 let img = document.createElement('img');
 
-a.getImage().then((res) => {
-    // console.log('res', res);
-   img.src = res;
+// a.getImage().then((res) => {
+//     console.log('res', res);
+//    img.src = res;
+//    document.body.append(img)
+// })
+
+a.getThumbnail(200).then((res) => {
+    console.log('getThumbnail', res);
+    img.src = res;
    document.body.append(img)
 })
-
-// a.getThumbnail(200).then((res) => {
-//     console.log('getThumbnail', res);
-// })
