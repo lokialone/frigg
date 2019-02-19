@@ -1,8 +1,7 @@
 # Frigg
 将一定格式的json转成对应的jpg图片，返回图片的base64信息
 
-
-当前可用@souche/frigg@0.0.2
+当前可用@souche/frigg@0.0.3
 
 ## usgae
 
@@ -20,6 +19,9 @@
     })
 ```
 
+## json格式
+
+### 实例
 ```
     //testJson格式
     const testJson = {
@@ -38,26 +40,16 @@
     //     value: 'http://img2.3lian.com/2014/f5/63/d/16.jpg'
     // },
     items: [
-        // {
-        //     type: 'image',
-        //     top: 200,
-        //     left: 200,
-        //     width: 100,
-        //     height: 100,
-        //     rotate: 45,
-        //     opacity: 0.3,
-        //     value: 'http://img2.3lian.com/2014/f5/63/d/16.jpg'
-        // },
-        // {
-        //     type: 'image',
-        //     top: 200,
-        //     left: 90,
-        //     width: 100,
-        //     height: 100,
-        //     rotate: 30,
-        //     opacity: 0.7,
-        //     value: 'http://img2.3lian.com/2014/f5/63/d/16.jpg'
-        // },
+        {
+                type: 'image',
+                top: 200,
+                left: 200,
+                width: 100,
+                height: 100,
+                rotate: 45,
+                opacity: 0.3,
+                value: 'http://img2.3lian.com/2014/f5/63/d/16.jpg'
+        },
         {
             type: 'text',
             top: 200,
@@ -66,23 +58,6 @@
             height: 100,
             rotate: 0,
             value: '我不好',
-            style: {
-                'font-size': 14,
-                'font-family': '',
-                'letter-spacing': 3,
-                'line-height': 28,
-                'text-align': 'center',
-                color: 'red'
-            }
-        },
-        {
-            type: 'text',
-            top: 0,
-            left: 0,
-            width: 100,
-            height: 100,
-            rotate: 0,
-            value: '你好哇，李银河',
             style: {
                 'font-size': 14,
                 'font-family': '',
@@ -116,24 +91,7 @@
                         'text-align': 'center',
                         color: 'red'
                     }
-                },
-                {
-                    type: 'text',
-                    top: 40,
-                    left: 10,
-                    width: 100,
-                    height: 100,
-                    rotate: 0,
-                    value: '我不好',
-                    style: {
-                        'font-size': 14,
-                        'font-family': '',
-                        'letter-spacing': 3,
-                        'line-height': 28,
-                        'text-align': 'center',
-                        color: 'red'
-                    }
-                },
+                }
             ]
         }
     ]
@@ -141,6 +99,12 @@
 } 
 
 ```
+
+- left, top的值皆为相对于 backgroud的距离 最左边和最上边的距离。
+
+- 可绘制的items的type类型为，text(文字)、group(文字组,多个text组合在一起的文本)、image。
+
+- background 可为2种类型， image(图片背景) 和 color (纯色背景)；
 
 
 
