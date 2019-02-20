@@ -35,9 +35,10 @@ class Frigg {
     createContainer() {
         let div = document.createElement('div')
         div.id = this.containerId
-        div.style.visibility = 'hidden'
+        div.style.display = 'none'
         div.style.zIndex = '-1'
         div.style.position = 'absolute'
+        div.style.top= '-1000px'
         this.container = div
         document.body.append(div)
     }
@@ -60,6 +61,7 @@ class Frigg {
                     if (!image) {
                         reject('无法生成image')
                     }
+                    this.removeContainer()
                     resolve(image)  
                 })
                 Quene.next()
