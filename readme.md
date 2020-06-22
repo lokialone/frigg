@@ -1,10 +1,7 @@
 # Frigg
-将一定格式的json转成对应的jpg图片，返回图片的base64信息
-
-当前可用@souche/frigg@0.0.3
+将一定格式的json转成对应的jpg图片，返回图片的base64信息，（注：图片绘制会有跨域限制，需自行处理图片跨域问题）
 
 ## usgae
-
 
 ```
     //testJson 绘制的格式
